@@ -1,0 +1,26 @@
+services:
+  rtsp-relay:
+    build: .
+    restart: unless-stopped
+    environment:
+      CAMERA_ID: cam-driveway
+      RTSP_URL: rtsp://admin:yourpassword@192.168.1.50/stream1
+      MEDIA_BUCKET: watchtell-media-916918686359
+      EVENT_TYPE: unknown          # entry | exit | unknown
+      AWS_REGION: us-east-1
+      FRAME_INTERVAL: "5"          # seconds between captures
+      AWS_ACCESS_KEY_ID: ""        # leave blank to use IAM role / instance profile
+      AWS_SECRET_ACCESS_KEY: ""
+
+  # Optional: HLS live stream relay (requires ffmpeg, runs alongside rtsp-relay)
+  hls-relay:
+    image: linuxserver/ffmpeg:latest
+    restart: unless-stopped
+    environment:
+      CAMERA_ID: cam-driveway
+      RTSP_URL: rtsp://admin:yourpassword@192.168.1.50/stream1
+      HLS_BUCKET: watchtell-hls-916918686359
+      AWS_REGION: us-east-1
+    volumes:
+      - ./hls_relay.sh:/hls_relay.sh:ro
+    entrypoint: ["/bin/bash", "/hls_relay.sh"]

@@ -1,0 +1,28 @@
+# CDK
+infrastructure/cdk.out/
+infrastructure/.cdk.staging/
+*.js.map
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+
+# Environment / secrets
+.env
+*.env.local
+
+# Node
+node_modules/
+
+# Frontend build output
+frontend/dist/
+frontend/build/
+
+# OS
+.DS_Store
+Thumbs.db
