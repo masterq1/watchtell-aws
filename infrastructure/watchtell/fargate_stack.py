@@ -133,7 +133,7 @@ class FargateStack(Stack):
             cluster=cluster,
             task_definition=task_def,
             service_name="watchtell-hls-relay",
-            desired_count=1,
+            desired_count=0,  # scaled to 1 after image is pushed to ECR via GitHub Actions
             assign_public_ip=True,
             security_groups=[sg],
             vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC),
