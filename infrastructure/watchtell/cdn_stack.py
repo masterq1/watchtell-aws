@@ -102,6 +102,8 @@ class CdnStack(Stack):
             allowed_methods=cloudfront.AllowedMethods.ALLOW_GET_HEAD,
         )
 
+        self.hls_bucket = hls_bucket
+
         CfnOutput(self, "DistributionDomain", value=distribution.distribution_domain_name)
         CfnOutput(self, "SpaBucketName", value=spa_bucket.bucket_name)
         CfnOutput(self, "HlsBucketName", value=hls_bucket.bucket_name)

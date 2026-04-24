@@ -7,6 +7,7 @@ from watchtell.pipeline_stack import PipelineStack
 from watchtell.api_stack import ApiStack
 from watchtell.cdn_stack import CdnStack
 from watchtell.security_stack import SecurityStack
+from watchtell.fargate_stack import FargateStack
 
 app = cdk.App()
 
@@ -51,6 +52,13 @@ security = SecurityStack(
     media_bucket=storage.media_bucket,
     events_table=storage.events_table,
     api_id=api.http_api_id,
+    env=env,
+)
+
+fargate = FargateStack(
+    app, "WatchtellFargate",
+    hls_bucket=cdn.hls_bucket,
+    camera_id="cam-doorway",
     env=env,
 )
 
